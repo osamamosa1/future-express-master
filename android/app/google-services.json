@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102696219660",
+    "project_id": "decoded-jigsaw-402013",
+    "storage_bucket": "decoded-jigsaw-402013.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102696219660:android:74ffaf17eda9ddc3c9ea29",
+        "android_client_info": {
+          "package_name": "com.future.express.future_express"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv2U-lHheE-BngV2OVoCiOv0xNqsrzl8k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,8 @@
+<svg id="Group" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <path id="Path" d="M0,0H30V30H0Z" fill="none"/>
+  <path id="Path-2" data-name="Path" d="M0,.625H20" transform="translate(5 8.125)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.875"/>
+  <path id="Path-3" data-name="Path" d="M.625,0V7.5" transform="translate(11.875 13.75)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.875"/>
+  <path id="Path-4" data-name="Path" d="M.625,0V7.5" transform="translate(16.875 13.75)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.875"/>
+  <path id="Path-5" data-name="Path" d="M0,0,1.25,15a2.5,2.5,0,0,0,2.5,2.5h10a2.5,2.5,0,0,0,2.5-2.5L17.5,0" transform="translate(6.25 8.75)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.875"/>
+  <path id="Path-6" data-name="Path" d="M0,5V1.25A1.25,1.25,0,0,1,1.25,0h5A1.25,1.25,0,0,1,7.5,1.25V5" transform="translate(11.25 3.75)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.875"/>
+</svg>

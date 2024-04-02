@@ -1,0 +1,5 @@
+<svg id="Group" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <path id="Path" d="M0,0H30V30H0Z" fill="none"/>
+  <rect id="Rectangle" width="22.5" height="17.5" rx="2.5" transform="translate(3.75 6.25)" fill="none" stroke="#b9b9b9" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.875"/>
+  <path id="Path-2" data-name="Path" d="M0,0,11.25,7.5,22.5,0" transform="translate(3.75 8.75)" fill="none" stroke="#b9b9b9" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.875"/>
+</svg>

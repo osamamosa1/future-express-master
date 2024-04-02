@@ -1,0 +1,16 @@
+<svg id="united-kingdom" xmlns="http://www.w3.org/2000/svg" width="71.155" height="71.155" viewBox="0 0 71.155 71.155">
+  <path id="Path" d="M55.59,71.155H15.565A15.565,15.565,0,0,1,0,55.59V15.565A15.565,15.565,0,0,1,15.565,0H55.59A15.565,15.565,0,0,1,71.155,15.565V55.59A15.565,15.565,0,0,1,55.59,71.155Z" transform="translate(0)" fill="#41479b"/>
+  <g id="Group" transform="translate(0)">
+    <path id="Path-2" data-name="Path" d="M29.96,14.393V10.976L18.923,3.745H29.96V0H0V29.96H3.745V7.232L27.5,22.8A15.484,15.484,0,0,0,29.411,18.5" transform="translate(41.195 41.195)" fill="#f5f5f5"/>
+    <path id="Path-3" data-name="Path" d="M1.047,20.015A15.527,15.527,0,0,0,2.46,22.8L26.215,7.232V29.96H29.96V0H0V3.745H11.037L0,10.976v3.419a15.73,15.73,0,0,0,.1,1.77" transform="translate(0 41.195)" fill="#f5f5f5"/>
+    <path id="Path-4" data-name="Path" d="M0,16.094v2.889l11.037,7.231H0V29.96H29.96V0H26.215V22.728L2.46,7.164A15.479,15.479,0,0,0,.433,11.91" fill="#f5f5f5"/>
+    <path id="Path-5" data-name="Path" d="M28.893,9.891A15.513,15.513,0,0,0,27.5,7.164L3.745,22.728V0H0V29.96H29.96V26.215H18.923L29.96,18.984V15.565a15.725,15.725,0,0,0-.108-1.832" transform="translate(41.195)" fill="#f5f5f5"/>
+  </g>
+  <g id="Group-2" data-name="Group" transform="translate(0)">
+    <path id="Path-6" data-name="Path" d="M41.2,0H29.96V29.96H0V41.2H29.96v29.96H41.2V41.2h29.96V29.96H41.2Z" transform="translate(0)" fill="#ff4b55"/>
+    <path id="Path-7" data-name="Path" d="M19.133,0,0,12.42a15.465,15.465,0,0,0,.946,3.851L26.011,0H19.133Z" transform="translate(0.101 44.94)" fill="#ff4b55"/>
+    <path id="Path-8" data-name="Path" d="M0,0,22.734,14.757a15.585,15.585,0,0,0,.549-4.107v0L6.879,0Z" transform="translate(47.872 44.94)" fill="#ff4b55"/>
+    <path id="Path-9" data-name="Path" d="M22.47,14.3.433,0A15.6,15.6,0,0,0,0,3.655v.529L15.591,14.3Z" transform="translate(0 11.91)" fill="#ff4b55"/>
+    <path id="Path-10" data-name="Path" d="M6.879,16.324,26.107,3.842A15.466,15.466,0,0,0,25.148,0L0,16.324Z" transform="translate(44.94 9.891)" fill="#ff4b55"/>
+  </g>
+</svg>
