@@ -1,0 +1,8 @@
+<svg id="Group" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path id="Path" d="M0,0H24V24H0Z" fill="none"/>
+    <rect id="Rectangle" width="16" height="16" rx="2" transform="translate(4 5)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path-2" data-name="Path" d="M.5,0V4" transform="translate(15.5 3)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path-3" data-name="Path" d="M.5,0V4" transform="translate(7.5 3)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path-4" data-name="Path" d="M0,.5H16" transform="translate(4 10.5)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path-5" data-name="Path" d="M0,.5H4" transform="translate(10 15.5)" fill="none" stroke="#2c3e50" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+</svg>
