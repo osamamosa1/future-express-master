@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,8 @@ import 'package:future_express/modules/restaurant_delivery/orders/cubit/order_cu
 import 'package:future_express/shared/utils/extension.dart';
 import 'package:future_express/shared/widgets/otp_form.dart';
 import 'package:geolocator/geolocator.dart';
+
+import '../../../../shared/router.dart';
 
 class OtpConfirm extends StatelessWidget {
   final int isOtp;
@@ -46,11 +49,10 @@ class OtpConfirm extends StatelessWidget {
                   : const SizedBox(),
               phone: 'code',
               onActivate: (otp) async {
-                await OrdersRestaurantCubit.get(context).getAvatar(orderId);
-                OrdersRestaurantCubit.get(context).confirmOtpCode(otp,position);
-                if (state is ConfirmOrderLoaded) {
-                  Navigator.pop(context);
-                }
+                await OrdersRestaurantCubit.get(context).confirmOtpCode(otp,position);
+                if(send_image == 1){
+                    await OrdersRestaurantCubit. get (context).getAvatar(orderId);}
+                router.go('/homeLayOut');
                 return null;
               }),
         ),

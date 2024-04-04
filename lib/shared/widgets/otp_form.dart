@@ -40,6 +40,7 @@ class _OTPFormState extends State<OTPForm> {
   String otp = '';
   int _resendTime = 120; // in seconds
   Timer? _timer;
+  bool? isFinished=false;
   String? error;
 
   void _resend() {
@@ -187,13 +188,10 @@ class _OTPFormState extends State<OTPForm> {
                         });
                         if (widget.onActivate != null && error == null) {
                           final message = await widget.onActivate!(otp);
-                          setState(() {
                             error = message;
-                          });
                         }
                       }
 
-                      if (widget.isSendImage) {}
                     },
                     child: Text(widget.buttonText),
                   ),
@@ -252,20 +250,7 @@ class _OTPFormState extends State<OTPForm> {
                       ExpressButton(
                         loading: widget.loading,
                         onPressed: () async {
-                          final message = Validator(otp)
-                              .digits('t.otp_must_contain_only_digits')
-                              .length(digits, 't.otp_must_be_of_length(digits)')
-                              .error;
-
-                          setState(() {
-                            error = message;
-                          });
-                          if (widget.onActivate != null && error == null) {
-                            final message = await widget.onActivate!(otp);
-                            setState(() {
-                              error = message;
-                            });
-                          }
+                          Navigator.pop(context);
                         },
                         child: Text(context.tr.send),
                       ),

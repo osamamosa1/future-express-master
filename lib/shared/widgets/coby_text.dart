@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:future_express/shared/palette.dart';
-import 'package:future_express/shared/widgets/express_card.dart';
 
 class CopyableWidget extends StatefulWidget {
   final String textToCopy;

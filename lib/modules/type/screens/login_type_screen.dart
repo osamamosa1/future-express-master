@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:future_express/modules/type/widgets/login_type_item.dart';
 import 'package:future_express/shared/network/local/cache_helper.dart';
 import 'package:future_express/shared/router.dart';
-import 'package:future_express/shared/widgets/express_button.dart';
 
 class LoginTypeScreen extends StatelessWidget {
   const LoginTypeScreen({super.key, required this.types});
@@ -15,7 +14,7 @@ class LoginTypeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("طريقة تسجيل دخولك"),
+        title: const Text('طريقة تسجيل دخولك'),
         backgroundColor: Colors.transparent,
         centerTitle: true,
         elevation: 0,
@@ -29,7 +28,7 @@ class LoginTypeScreen extends StatelessWidget {
             const Align(
               alignment: Alignment.center,
               child: Text(
-                "وش حابب تكون اليوم \n يا بطلنا !",
+                'وش حابب تكون اليوم \n يا بطلنا !',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,
@@ -48,7 +47,7 @@ class LoginTypeScreen extends StatelessWidget {
                       router.go('/homeLayOut');
                     },
                     child: const LoginTypeItem(
-                      text: "مندوب مطاعم",
+                      text: 'مندوب مطاعم',
                       image: 'assets/images/mt3am.png',
                     ),
                   ),
@@ -59,7 +58,7 @@ class LoginTypeScreen extends StatelessWidget {
                       router.go('/homeLayOut');
                     },
                     child: const LoginTypeItem(
-                      text: "مندوب طرود",
+                      text: 'مندوب طرود',
                       image: 'assets/images/trood.png',
                     ),
                   ),
@@ -77,7 +76,7 @@ class LoginTypeScreen extends StatelessWidget {
                       router.go('/homeLayOut');
                     },
                     child: const LoginTypeItem(
-                      text: "مندوب فلفمنت",
+                      text: 'مندوب فلفمنت',
                       image: 'assets/images/folfelment.png',
                     ),
                   ),

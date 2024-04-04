@@ -25,7 +25,9 @@ class OrdersRestaurantCubit extends Cubit<OrdersRestaurantState> {
   static OrdersRestaurantCubit get(context) => BlocProvider.of(context);
 
   List<Order>? allOrder = [];
-
+  String? nextAll;
+  int currentStatusId=0;
+  bool loading=false;
    getAllOrder() async {
       try {
         emit(AllOrderLoad());
@@ -52,6 +54,41 @@ class OrdersRestaurantCubit extends Cubit<OrdersRestaurantState> {
 
 
   }
+  getOrderById(id) async {
+    loading=true;
+    try {
+      log('getOrderById');
+      emit(AllOrderLoad());
+      var response = await DioHelper.getData(
+        Url:(nextAll==null||nextAll=='finished'&&currentStatusId==id)? 'https://future-ex.com/api/v1/git_orders_status?status_id=$id':nextAll!,
+      );
+      if (response.statusCode == 200) {
+        log(response.data.toString());
+        Map<String, dynamic> data = response.data;
+        List<dynamic> orderData = data['data'];
+        if(data['meta']['current_page']<data['meta']['last_page']){
+          nextAll=data['links']['next'].toString();
+
+        }else{
+          nextAll=null;
+        }
+        allOrder = orderData.map((item) => Order.fromJson(item)).toList();
+
+        emit(SuccessAllOrderState(Orders: allOrder!));
+      } else {
+        // التعامل مع حالة الاستجابة غير الناجحة هنا
+        print('فشل الاستجابة: ${response.statusCode}');
+      }
+    } catch (error) {
+      log(error.toString());
+      showToast(message: "message'", toastStates: ToastStates.EROOR);
+      emit(AllOrderLoadFailed());
+    }
+    currentStatusId=id;
+    loading=false;
+
+  }
+
 
   OrdersRestaurant? orderRestaurant;
 
@@ -123,7 +160,7 @@ class OrdersRestaurantCubit extends Cubit<OrdersRestaurantState> {
     }
   }
 
-  void confirmOtpCode(code,Position position) async {
+   confirmOtpCode(code,Position position) async {
     try {
       emit(ConfirmOrderLoad());
       var response = await DioHelper.postData(
@@ -139,7 +176,7 @@ class OrdersRestaurantCubit extends Cubit<OrdersRestaurantState> {
         print('فشل الاستجابة: ${response.statusCode}');
       }
     } catch (error) {
-      showToast(message: 'هذا الكود غير صالح', toastStates: ToastStates.EROOR);
+      // showToast(message: 'هذا الكود غير صالح', toastStates: ToastStates.EROOR);
       emit(ConfirmOrderLoadFailed());
     }
   }
@@ -170,6 +207,6 @@ class OrdersRestaurantCubit extends Cubit<OrdersRestaurantState> {
       Url: AppUrl.realImage,
       data: data,
     ).then((value) => showToast(
-        message: value.data['message'], toastStates: ToastStates.SUCCESS));
+        message: value.data['message'].toString(), toastStates: ToastStates.SUCCESS));
   }
 }

@@ -84,7 +84,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     child: auth.avatar == null
                                         ? Center(
                                             child: Image.network(
-                                                auth.image! ?? ''),
+                                                auth.image ?? ''),
                                           )
                                         : Image.file(File(auth.avatar!.path)),
                                   ),

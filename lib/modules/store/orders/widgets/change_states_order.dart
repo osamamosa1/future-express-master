@@ -5,13 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:future_express/model/order.dart';
 import 'package:future_express/modules/home/cubit/home_cubit.dart';
-import 'package:future_express/shared/router.dart';
 import 'package:future_express/shared/utils/extension.dart';
 import 'package:future_express/shared/widgets/express_button.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../../shared/utils/my_utils.dart';
-import '../../../../shared/widgets/otp_form.dart';
 import '../../../restaurant_delivery/current_orders/widget/otpConfirm.dart';
 import '../cubit/order_cubit.dart';
 
@@ -100,8 +98,7 @@ class _ChangeStatesOrderState extends State<ChangeStatesOrder> {
                     ),
                     onPressed: () async {
                       if(state is !UpdateOrderLoad){
-                        await OrderCubit.get(context).updateOrder(
-                            widget.order.id, statusesItem.statuseItme);
+                        await OrderCubit.get(context).updateOrder(widget.order.id, statusesItem.statuseItme,position!);
                         if (statusesItem.isOtp == 1 || statusesItem.send_image ==1) {
                           showMyBottomSheet(
                             context,

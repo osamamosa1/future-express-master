@@ -28,8 +28,8 @@ class AppUrl {
   static const String orderToday = 'v1/Daily/orders';
   static const String orderDetails = 'v1/order_details';
   static const String scan = 'v1/search';
-  static const String statuses = 'v1/statuses';
-  static const String update = 'v1/orders/update';
+  static const String statuses = 'v2/statuses';
+  static const String update = 'v2/orders/update';
 
   // static const String update = 'v2/orders-list/update';
   static const String confirmOtpCode = 'v1/otp_code';
