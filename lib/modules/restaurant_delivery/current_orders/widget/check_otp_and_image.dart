@@ -118,6 +118,7 @@ class _ChangeStatesOrderState extends State<ChangeStatesOrder> {
                       showMyBottomSheet(
                         context,
                         OtpConfirm.OtpConfirm(
+                            isOtp: statusesItem.isOtp!,
                             orderId: widget.order.orderId,
                             position:widget.position ,
                             send_image: statusesItem.send_image!),

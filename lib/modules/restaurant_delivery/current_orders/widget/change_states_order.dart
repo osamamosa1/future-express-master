@@ -114,10 +114,11 @@ class _ChangeStatesOrderState extends State<ChangeStatesOrder> {
                     BlocProvider.of<OrdersRestaurantCubit>(context)
                         .getOrder(widget.order.orderId);
 
-                    if (statusesItem.isOtp == 1) {
+                    if (statusesItem.isOtp == 1 || statusesItem.send_image == 1) {
                       showMyBottomSheet(
                         context,
                         OtpConfirm.OtpConfirm(
+                            isOtp: statusesItem.isOtp!,
                             orderId: widget.order.orderId,
                             position: widget.position,
                             send_image: statusesItem.send_image!),

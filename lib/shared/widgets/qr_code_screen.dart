@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:future_express/shared/palette.dart';
 import 'package:future_express/shared/router.dart';
-import 'package:future_express/shared/widgets/camera_border_painter.dart';
 
-// import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+
 
 //
 //

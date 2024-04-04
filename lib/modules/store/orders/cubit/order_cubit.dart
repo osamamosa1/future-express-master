@@ -7,6 +7,7 @@ import 'package:future_express/shared/components/components.dart';
 import 'package:future_express/shared/network/remote/dio_helper.dart';
 import 'package:future_express/shared/router.dart';
 import 'package:future_express/shared/utils/app_url.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../../model/order.dart';
 import '../../../../model/order_details.dart';
@@ -49,6 +50,7 @@ class OrderCubit extends Cubit<OrderState> {
 
   List<Order>? allOrder = [];
   String? nextAll;
+  int currentStatusId=0;
   bool loading=false;
    getallOrder() async {
      loading=true;
@@ -80,6 +82,40 @@ class OrderCubit extends Cubit<OrderState> {
       showToast(message: "message'", toastStates: ToastStates.EROOR);
       emit(AllOrderLoadFailed());
     }
+     loading=false;
+
+   }
+   getOrderById(id) async {
+     loading=true;
+    try {
+      log('getOrderById');
+      emit(AllOrderLoad());
+      var response = await DioHelper.getData(
+        Url:(nextAll==null||nextAll=='finished'&&currentStatusId==id)? 'https://future-ex.com/api/v1/git_orders_status?status_id=$id':nextAll!,
+      );
+      if (response.statusCode == 200) {
+        log(response.data.toString());
+        Map<String, dynamic> data = response.data;
+        List<dynamic> orderData = data['data'];
+        if(data['meta']['current_page']<data['meta']['last_page']){
+          nextAll=data['links']['next'].toString();
+
+        }else{
+          nextAll=null;
+        }
+          allOrder = orderData.map((item) => Order.fromJson(item)).toList();
+
+        emit(SuccessAllOrderState(Orders: allOrder!));
+      } else {
+        // التعامل مع حالة الاستجابة غير الناجحة هنا
+        print('فشل الاستجابة: ${response.statusCode}');
+      }
+    } catch (error) {
+      log(error.toString());
+      showToast(message: "message'", toastStates: ToastStates.EROOR);
+      emit(AllOrderLoadFailed());
+    }
+     currentStatusId=id;
      loading=false;
 
    }
@@ -118,12 +154,12 @@ class OrderCubit extends Cubit<OrderState> {
   //  }
 
 
-  updateOrder(id, statusId) async {
+  updateOrder(id, statusId,Position position) async {
     try {
       emit(UpdateOrderLoad());
       var response = await DioHelper.postData(
           Url: AppUrl.update,
-          data: FormData.fromMap({'id': id, 'status_id': statusId}));
+          data: FormData.fromMap({'id': id, 'status_id': statusId,'latitude':position.latitude,'longitude':position.longitude}));
       log(response.data.toString());
       if (response.statusCode == 200) {
         showToast(

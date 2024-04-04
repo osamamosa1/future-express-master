@@ -14,7 +14,8 @@ import '../utils/validator.dart';
 class OTPForm extends StatefulWidget {
   final String phone;
   final bool loading;
-  final bool isShowMessage;
+  final bool isOtp;
+  final bool isSendImage;
   final Widget image;
   final String buttonText;
   final void Function()? onResend;
@@ -23,8 +24,9 @@ class OTPForm extends StatefulWidget {
   const OTPForm(
       {super.key,
       required this.phone,
+      required this.isSendImage,
       this.loading = false,
-      this.isShowMessage = true,
+      this.isOtp = true,
       this.image = const SizedBox(),
       this.onResend,
       this.onActivate,
@@ -38,6 +40,7 @@ class _OTPFormState extends State<OTPForm> {
   String otp = '';
   int _resendTime = 120; // in seconds
   Timer? _timer;
+  bool? isFinished=false;
   String? error;
 
   void _resend() {
@@ -94,179 +97,179 @@ class _OTPFormState extends State<OTPForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (!widget.isShowMessage) ...[
-          SvgPicture.asset(
-            'assets/images/otp.svg',
-            height: 250.h,
-          ),
-          const Text('كود التحقق',
-              style: TextStyle(
-                  color: Palette.primaryColor, fontWeight: FontWeight.bold)),
-          Text('الرجاء كتابة كود التحقق المرسل على جوال العميل',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Palette.greyColor.shade600,
-                height: 1.75,
-              )),
-          Text(
-            'حتى تستطيع تسليم الطلب',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Palette.greyColor.shade600,
-              height: 1.75,
-            ),
-          )
-        ],
-        if (widget.isShowMessage)
-          Text(
-            formattedResendTime,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Palette.greyColor.shade600,
-              height: 1.75,
-            ),
-          ),
-        const SizedBox(height: 24.0),
-        Localizations.override(
-          context: context,
-          locale: const Locale('en'),
-          child: OTPTextField(
-            onChanged: (value) {
-              setState(() {
-                otp = value;
-              });
-            },
-            width: contentWidth,
-            length: digits,
-            fieldWidth: otpFieldWidth,
-            fieldStyle: FieldStyle.box,
-            outlineBorderRadius: 15,
-            style: const TextStyle(fontSize: 40.0),
-            textFieldAlignment: MainAxisAlignment.spaceAround,
-            isDense: true,
-            otpFieldStyle: OtpFieldStyle(
-              backgroundColor: Palette.whiteColor,
-              enabledBorderColor: Palette.greyColor,
-              focusBorderColor: Palette.primaryColor,
-              errorBorderColor: Palette.dangerColor,
-              borderColor: Palette.greyColor,
-              disabledBorderColor: Palette.greyColor,
-            ),
-            hasError: error != null,
-          ),
-        ),
-        if (error != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              error!,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall!
-                  .copyWith(color: Palette.dangerColor),
-            ),
-          ),
-        const SizedBox(height: 24.0),
-        if (widget.isShowMessage)
-          ExpressButton(
-            loading: widget.loading,
-            onPressed: () async {
-              final message = Validator(otp)
-                  .digits('t.otp_must_contain_only_digits')
-                  .length(digits, 't.otp_must_be_of_length(digits)')
-                  .error;
-
-              setState(() {
-                error = message;
-              });
-              if (widget.onActivate != null && error == null) {
-                final message = await widget.onActivate!(otp);
-                setState(() {
-                  error = message;
-                });
-              }
-            },
-            child: Text(widget.buttonText),
-          ),
-        const SizedBox(height: 24.0),
-        if (widget.isShowMessage)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'لم تتلق الرسائل القصيرة؟',
-                style: TextStyle(
-                  color: Palette.greyColor.shade600,
-                  height: 1.75,
-                ),
-              ),
-              const SizedBox(
-                width: 3,
-              ),
-              GestureDetector(
-                onTap: _resend,
-                child: Container(
-                  padding: const EdgeInsets.only(
-                    bottom: 3,
+        widget.isOtp
+            ? Column(
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/otp.svg',
+                    height: 200.h,
                   ),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: canResend
-                        ? Palette.blackColor
-                        : Palette.greyColor.shade600,
-                    width: 1.5,
-                  ))),
-                  child: Text(
-                    'أرسل رمز التحقق مرة أخرى',
+                  const Text('كود التحقق',
+                      style: TextStyle(
+                          color: Palette.primaryColor,
+                          fontWeight: FontWeight.bold)),
+                  Text('الرجاء كتابة كود التحقق المرسل على جوال العميل',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Palette.greyColor.shade600,
+                        height: 1.75,
+                      )),
+                  Text(
+                    'حتى تستطيع تسليم الطلب',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: canResend
-                          ? Palette.blackColor
-                          : Palette.greyColor.shade600,
-                      fontSize: 14,
+                      color: Palette.greyColor.shade600,
+                      height: 1.75,
                     ),
                   ),
-                ),
-              ),
-            ],
-          ),
-        if (!widget.isShowMessage) widget.image,
-        if (!widget.isShowMessage)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ExpressButton(
-                loading: widget.loading,
-                onPressed: () async {
-                  final message = Validator(otp)
-                      .digits('t.otp_must_contain_only_digits')
-                      .length(digits, 't.otp_must_be_of_length(digits)')
-                      .error;
+                  widget.isOtp
+                      ? Text(
+                          formattedResendTime,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Palette.greyColor.shade600,
+                            height: 1.75,
+                          ),
+                        )
+                      : const SizedBox(),
+                  const SizedBox(height: 24.0),
+                  widget.isOtp
+                      ? Localizations.override(
+                          context: context,
+                          locale: const Locale('en'),
+                          child: OTPTextField(
+                            onChanged: (value) {
+                              setState(() {
+                                otp = value;
+                              });
+                            },
+                            width: contentWidth,
+                            length: digits,
+                            fieldWidth: otpFieldWidth,
+                            fieldStyle: FieldStyle.box,
+                            outlineBorderRadius: 15,
+                            style: const TextStyle(fontSize: 40.0),
+                            textFieldAlignment: MainAxisAlignment.spaceAround,
+                            isDense: true,
+                            otpFieldStyle: OtpFieldStyle(
+                              backgroundColor: Palette.whiteColor,
+                              enabledBorderColor: Palette.greyColor,
+                              focusBorderColor: Palette.primaryColor,
+                              errorBorderColor: Palette.dangerColor,
+                              borderColor: Palette.greyColor,
+                              disabledBorderColor: Palette.greyColor,
+                            ),
+                            hasError: error != null,
+                          ),
+                        )
+                      : const SizedBox(),
+                  if (error != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        error!,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodySmall!
+                            .copyWith(color: Palette.dangerColor),
+                      ),
+                    ),
+                  const SizedBox(height: 24.0),
+                  ExpressButton(
+                    loading: widget.loading,
+                    onPressed: () async {
+                      if (widget.isOtp) {
+                        final message = Validator(otp)
+                            .digits('t.otp_must_contain_only_digits')
+                            .length(digits, 't.otp_must_be_of_length(digits)')
+                            .error;
 
-                  setState(() {
-                    error = message;
-                  });
-                  if (widget.onActivate != null && error == null) {
-                    final message = await widget.onActivate!(otp);
-                    setState(() {
-                      error = message;
-                    });
-                  }
-                },
-                child: Text(context.tr.send),
-              ),
-              SizedBox(
-                width: 0.4.sw,
-              ),
-              ExpressButton(
-                loading: widget.loading,
-                style: ExpressButtonStyle.secondary,
-                onPressed: () async {
-                  Navigator.pop(context);
-                },
-                child: Text(context.tr.cancel),
-              ),
-            ],
-          ),
+                        setState(() {
+                          error = message;
+                        });
+                        if (widget.onActivate != null && error == null) {
+                          final message = await widget.onActivate!(otp);
+                            error = message;
+                        }
+                      }
+
+                    },
+                    child: Text(widget.buttonText),
+                  ),
+                  const SizedBox(height: 24.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'لم تتلق الرسائل القصيرة؟',
+                        style: TextStyle(
+                          color: Palette.greyColor.shade600,
+                          height: 1.75,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 3,
+                      ),
+                      GestureDetector(
+                        onTap: _resend,
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                            bottom: 3,
+                          ),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                            color: canResend
+                                ? Palette.blackColor
+                                : Palette.greyColor.shade600,
+                            width: 1.5,
+                          ))),
+                          child: Text(
+                            'أرسل رمز التحقق مرة أخرى',
+                            style: TextStyle(
+                              color: canResend
+                                  ? Palette.blackColor
+                                  : Palette.greyColor.shade600,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            : const SizedBox(),
+        widget.isSendImage
+            ? Column(
+                children: [
+                  const SizedBox(height: 15,),
+                  widget.image,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ExpressButton(
+                        loading: widget.loading,
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                        child: Text(context.tr.send),
+                      ),
+                      SizedBox(
+                        width: 0.4.sw,
+                      ),
+                      ExpressButton(
+                        loading: widget.loading,
+                        style: ExpressButtonStyle.secondary,
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                        child: Text(context.tr.cancel),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            : SizedBox(),
       ],
     );
   }

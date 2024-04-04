@@ -122,7 +122,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (json['success'] == 1) {
         await CacheHelper.saveData(
             key: MyCacheKey.token.name, value: userV2.user?.apiToken);
-
+          print(json.toString());
         LoginModel = User.fromJson(json);
 
         if (LoginModel?.work.length == 1) {

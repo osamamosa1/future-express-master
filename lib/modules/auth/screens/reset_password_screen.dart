@@ -63,6 +63,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             OTPForm(
+              isSendImage: false,
+                isOtp: true,
                 buttonText: context.tr.verify,
                 phone: AuthCubit.get(context).mobilea.toString(),
                 onResend: () async => AuthCubit.get(context).forgetPassword(

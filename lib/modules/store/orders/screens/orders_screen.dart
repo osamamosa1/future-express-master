@@ -50,7 +50,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
               builder: (context, state) {
                 if (state is SuccessAllOrderState) {
                   return OrdersStatusScreen(
-                    orders: state.Orders,
                   );
                 }
                 return const Center(child: CircularProgressIndicator());

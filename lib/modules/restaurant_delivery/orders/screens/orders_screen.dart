@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:future_express/modules/home/cubit/home_cubit.dart';
 import 'package:future_express/modules/restaurant_delivery/orders/widgets/order_status.dart';
 import 'package:future_express/shared/utils/extension.dart';
 import 'package:future_express/shared/widgets/express_app_bar.dart';
@@ -27,12 +28,11 @@ class OrdersRestaurant extends StatelessWidget {
             ),
           ),
           body: BlocProvider(
-              create: (context) => OrdersRestaurantCubit()..getAllOrder(),
+              create: (context) => OrdersRestaurantCubit()..getOrderById(context.read<HomeCubit>().statusesItems![0].id),
               child: BlocBuilder<OrdersRestaurantCubit, OrdersRestaurantState>(
                   builder: (context, state) {
                 if (state is SuccessAllOrderState) {
                   return OrdersStatusScreen(
-                    orders: state.Orders,
                   );
                 }
 
