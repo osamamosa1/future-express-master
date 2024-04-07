@@ -15,7 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../shared/utils/my_utils.dart';
 
 class FooterOrderCurrent extends StatelessWidget {
-   const FooterOrderCurrent({super.key,required this.position});
+   const FooterOrderCurrent( {super.key, required this.position});
   final Position? position;
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class FooterOrderCurrent extends StatelessWidget {
                         onPressed: () {
                           showMyBottomSheet(
                             context,
-                            ChangeStatesOrder(order: state.Orders, position: position!,),
+                            ChangeStatesOrder(order: state.Orders,position: position!,),
                           );
                         }),
                     SizedBox(

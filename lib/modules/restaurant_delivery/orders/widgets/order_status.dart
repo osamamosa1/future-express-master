@@ -96,7 +96,7 @@ class _OrdersStatusScreenState extends State<OrdersStatusScreen> with
              // بناء عرض الطلبات باستخدام الحالات المرئية
              Expanded(
                child: TabBarView(
-                 controller:tabController ,
+                 physics: NeverScrollableScrollPhysics(),
                  children: _visibleStatuses()
                      .map((status) => _buildOrderListByStatus(status.title))
                      .toList(),
@@ -127,6 +127,7 @@ class _OrdersStatusScreenState extends State<OrdersStatusScreen> with
        currentStatusId=statuses[index].id;
        await HomeCubit.get(context).getStatuses();
        statuses=HomeCubit.get(context).statusesItems!;
+       context.read<OrderCubit>().nextAll=null;
        await context.read<OrderCubit>().getOrderById(currentStatusId);
        allOrders=context.read<OrderCubit>().allOrder!;
 

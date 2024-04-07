@@ -2,22 +2,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:future_express/model/order.dart';
 import 'package:future_express/shared/components/components.dart';
 import 'package:future_express/shared/palette.dart';
 import 'package:future_express/shared/utils/extension.dart';
 import 'package:future_express/shared/widgets/express_card.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-import '../screens/orderDetails-screen.dart';
 
 class CardOrderDetails extends StatelessWidget {
   const CardOrderDetails({
     super.key,
-    required this.widget,
+    required this.order,
     required this.isArabic,
   });
 
-  final OrderDetailsScreen widget;
+  final Order order;
   final bool isArabic;
 
   @override
@@ -44,7 +44,7 @@ class CardOrderDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 QrImageView(
-                  data: widget.order.orderId,
+                  data: order.orderId,
                   version: QrVersions.auto,
                   size: 250.0.h,
                 ),
@@ -52,7 +52,7 @@ class CardOrderDetails extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text.rich(
                     TextSpan(
-                      text: '${context.tr.order} : #${widget.order.orderId}',
+                      text: '${context.tr.order} : #${order.orderId}',
                       // textAlign: TextAlign.end,
                       style: const TextStyle(
                         color: Palette.blackColor,
@@ -61,7 +61,7 @@ class CardOrderDetails extends StatelessWidget {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           Clipboard.setData(
-                              ClipboardData(text: widget.order.orderId));
+                              ClipboardData(text: order.orderId));
                           showToast(
                             message: 'Copied to Clipboard',
                             toastStates: ToastStates.EROOR,
@@ -96,7 +96,7 @@ class CardOrderDetails extends StatelessWidget {
                 top: 200.h,
                 right: 15.h,
                 child: Text(
-                  '${widget.order.amount} ${context.tr.sar}',
+                  '${order.amount} ${context.tr.sar}',
                   style: TextStyle(
                       color: Palette.whiteColor,
                       fontSize: 32.sp,
@@ -107,7 +107,7 @@ class CardOrderDetails extends StatelessWidget {
                 top: 210.h,
                 left: 15.h,
                 child: Text.rich(TextSpan(
-                  text: "${widget.order.amount} ${context.tr.sar}",
+                  text: "${order.amount} ${context.tr.sar}",
                   style: TextStyle(
                     color: Palette.whiteColor,
                     fontSize: 24.sp,

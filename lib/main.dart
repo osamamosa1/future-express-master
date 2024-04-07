@@ -16,6 +16,7 @@ import 'package:future_express/shared/utils/user_local.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'bloc_observer/bloc_observer.dart';
 import 'layouts/cubit/cubit.dart';
 import 'modules/home/cubit/home_cubit.dart';
 import 'modules/profile/widgets/locale_cubit.dart';
@@ -49,6 +50,7 @@ void main() async {
   await CacheHelper.init();
   print(" in UserLocal ${UserLocal.token}");
   print("CacheHelper.getToken() ${await CacheHelper.getToken()}");
+  Bloc.observer = AppBlocObserver();
 
   runApp(const MyApp());
 }

@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_express/model/notificationModel.dart';
 import 'package:future_express/shared/network/local/cache_helper.dart';
 
+import '../../home/cubit/home_cubit.dart';
 import '../../restaurant_delivery/orders/cubit/order_cubit.dart';
 
 part 'notification_state.dart';
@@ -134,7 +135,7 @@ class NotificationCubit extends Cubit<NotificationState> {
 
       emit(NotificationsNewOrder());
       _controller.add(NotificationsNewOrder());
-      OrdersRestaurantCubit.get(context).getAllOrder();
+      OrdersRestaurantCubit.get(context).getOrderById(context.read<HomeCubit>().statusesItems![0].id);
 
       print('add log');
     } catch (error) {

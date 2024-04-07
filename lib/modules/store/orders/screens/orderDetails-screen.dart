@@ -16,6 +16,8 @@ import 'package:future_express/shared/utils/extension.dart';
 import 'package:future_express/shared/utils/my_utils.dart';
 import 'package:future_express/shared/widgets/express_app_bar.dart';
 import 'package:future_express/shared/widgets/express_button.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/change_states_order.dart';
@@ -29,9 +31,26 @@ class OrderDetailsScreen extends StatefulWidget {
 }
 
 class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+  Position? position;
+  bool? locationAcces;
+  getPosition()async{
+    position=await Geolocator.getCurrentPosition();
+  }
+  Future<void> checkAndRequestLocationPermission() async {
+    final status = await Permission.location.request();
+    if (status.isGranted) {
+      getPosition();
+      locationAcces=true;
+    } else {
+      locationAcces=false;
+
+    }
+  }
+
   @override
   void initState() {
     unawaited(HomeCubit.get(context).getStatuses());
+getPosition();
     super.initState();
   }
 
@@ -70,7 +89,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CardOrderDetails(
-                          widget: widget,
+                          order: widget.order,
                           isArabic: isArabic,
                         ),
                         Column(children: [
@@ -103,9 +122,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             height: 10,
                           ),
                           BadyOrderDetails(order: widget.order),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                          const SizedBox(height: 10,),
                           SizedBox(
                             width: 1.sw,
                             child: ExpressButton(
@@ -127,6 +144,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   }
 
   _showBottomModal() {
-    return showMyBottomSheet(context, ChangeStatesOrder(order: widget.order));
+    return showMyBottomSheet(context, ChangeStatesOrder(order: widget.order,position: position!,));
   }
 }

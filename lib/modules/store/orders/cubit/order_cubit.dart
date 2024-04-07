@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_express/shared/components/components.dart';
 import 'package:future_express/shared/network/remote/dio_helper.dart';
-import 'package:future_express/shared/router.dart';
 import 'package:future_express/shared/utils/app_url.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -90,15 +89,21 @@ class OrderCubit extends Cubit<OrderState> {
     try {
       log('getOrderById');
       emit(AllOrderLoad());
+      log(nextAll.toString());
+      // String restaurant='https://future-ex.com/api/v2/orders_restaurant';
+      // String orders='https://future-ex.com/api/v2/orders';
       var response = await DioHelper.getData(
-        Url:(nextAll==null||nextAll=='finished'&&currentStatusId==id)? 'https://future-ex.com/api/v1/git_orders_status?status_id=$id':nextAll!,
+        Url:(nextAll==null||nextAll=='finished'&&currentStatusId==id)? 'https://future-ex.com/api/v1/git_orders_status?status_id=$id':'${nextAll}&status_id=$id',
       );
+
       if (response.statusCode == 200) {
         log(response.data.toString());
         Map<String, dynamic> data = response.data;
         List<dynamic> orderData = data['data'];
         if(data['meta']['current_page']<data['meta']['last_page']){
+
           nextAll=data['links']['next'].toString();
+          log(nextAll.toString());
 
         }else{
           nextAll=null;
@@ -159,7 +164,7 @@ class OrderCubit extends Cubit<OrderState> {
       emit(UpdateOrderLoad());
       var response = await DioHelper.postData(
           Url: AppUrl.update,
-          data: FormData.fromMap({'id': id, 'status_id': statusId,'latitude':position.latitude,'longitude':position.longitude}));
+          data: FormData.fromMap({'id': id, 'status_id': statusId,'longitude':position.longitude,'latitude':position.latitude}));
       log(response.data.toString());
       if (response.statusCode == 200) {
         showToast(
@@ -181,13 +186,10 @@ class OrderCubit extends Cubit<OrderState> {
       emit(AllOrderLoad());
       var response = await DioHelper.postData(
           Url: AppUrl.confirmOtpCode, data: FormData.fromMap({'code': code}));
-      log(response.statusCode.toString());
-      log(response.data['message'].toString());
+
       if (response.statusCode == 200) {
         showToast(
             message: response.data['message'], toastStates: ToastStates.EROOR);
-        getallOrder();
-        router.go('/homeLayOut');
         emit(UpdateOrderLoad());
       } else {
         // التعامل مع حالة الاستجابة غير الناجحة هنا
@@ -202,11 +204,11 @@ class OrderCubit extends Cubit<OrderState> {
 
   OrderDetails? orderDetails;
 
-  void getOrder(orderId) async {
+   getOrder(orderId,userType) async {
     try {
       emit(AllOrderLoad());
       var response = await DioHelper.postData(
-          Url: AppUrl.orderDetails,
+          Url: (userType!=1)?AppUrl.ordersRestaurantDetails:AppUrl.orderDetails,
           data: FormData.fromMap({
             'order_id': orderId,
           }));

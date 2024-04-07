@@ -13,11 +13,34 @@ import '../shared/utils/assets_manager.dart';
 import 'cubit/cubit.dart';
 import 'cubit/states.dart';
 
-class HomeLayout extends StatelessWidget {
-  const HomeLayout({super.key});
+class HomeLayout extends StatefulWidget {
+  const HomeLayout({super.key,this.initialIndex});
+  final int? initialIndex;
 
   @override
+  State<HomeLayout> createState() => _HomeLayoutState();
+}
+
+class _HomeLayoutState extends State<HomeLayout> {
+  PersistentTabController? controller;
+
+@override
+  void initState() {
+    controller = PersistentTabController(initialIndex: 2);
+    // TODO: implement initState
+// controller!.addListener(() async{
+//   bool statuseFinished=false;
+//   if(controller!.index==0&&statuseFinished==false){
+//     await HomeCubit.get(context).getStatuses();
+//     statuseFinished=true;
+//   }
+//
+// });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<AppCubit, AppStates>(builder: (context, state) {
       var cubit = AppCubit.get(context);
       PersistentTabController controller;

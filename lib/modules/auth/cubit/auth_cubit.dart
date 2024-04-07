@@ -102,7 +102,7 @@ class AuthCubit extends Cubit<AuthState> {
       });
     }
   }
-
+  var userV2;
   Future<void> login({
     required String mobile,
     required String password,
@@ -115,20 +115,18 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       final response = await DioHelper.postData(Url: AppUrl.login, data: data);
-      final userV2 = LoginModelV2.fromJson(response.data);
+       userV2 = LoginModelV2.fromJson(response.data);
 
       String responseBody = response.toString();
       Map<String, dynamic> json = jsonDecode(responseBody);
       if (json['success'] == 1) {
-        await CacheHelper.saveData(
-            key: MyCacheKey.token.name, value: userV2.user?.apiToken);
+        await CacheHelper.saveData(key: MyCacheKey.token.name, value: userV2.user?.apiToken);
           print(json.toString());
         LoginModel = User.fromJson(json);
 
         if (LoginModel?.work.length == 1) {
           if (LoginModel?.work.first == 1 || LoginModel?.work.first == 4) {
-            await CacheHelper.saveData(
-                key: 'user', value: LoginModel!.work.first);
+            await CacheHelper.saveData(key: 'user', value: LoginModel!.work.first);
             router.go('/homeLayOut');
             await saveData(context);
           } else if (LoginModel?.work.first == 2) {
@@ -138,6 +136,7 @@ class AuthCubit extends Cubit<AuthState> {
             await saveData(context);
           }
         } else {
+          await CacheHelper.saveData(key: 'mainRole', value: true);
           await saveData(context);
           router.go('/loginTypeScreen', extra: userV2.user?.work ?? []);
         }

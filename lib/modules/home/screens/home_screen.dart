@@ -24,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     unawaited((HomeCubit.get(context).init()));
 
-    unawaited((HomeCubit.get(context).getStatuses()));
 
     super.initState();
     unawaited(NotificationCubit.get(context).fetchNotification());
@@ -51,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: size.height * 0.11,
                         child: HomeScreenButton(
-                          title: 'PICKUP',
+                          title: 'SCAN QR',
                           onPressed: () {
                             unawaited(router.push('/PickUp'));
                           },
@@ -65,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           title: context.tr.orders_today,
                           subTitle:
                               '${state.statistics!.ordersShipToday} ${context.tr.order}',
-                          onPressed: () => router.push('/orderToday'),
+                          onPressed: () => router.push('/allOrder'),
                           style: HomeButtonStyle.primary,
                         ),
                       ),

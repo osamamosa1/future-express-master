@@ -43,7 +43,7 @@ class LoginTypeScreen extends StatelessWidget {
                 if (types.contains(1))
                   InkWell(
                     onTap: () async {
-                      await CacheHelper.saveData(key: 'user', value: 1);
+                      await CacheHelper.saveData(key: 'user', value: 2);
                       router.go('/homeLayOut');
                     },
                     child: const LoginTypeItem(
@@ -54,7 +54,7 @@ class LoginTypeScreen extends StatelessWidget {
                 if (types.contains(2))
                   InkWell(
                     onTap: () async {
-                      await CacheHelper.saveData(key: 'user', value: 2);
+                      await CacheHelper.saveData(key: 'user', value: 1);
                       router.go('/homeLayOut');
                     },
                     child: const LoginTypeItem(

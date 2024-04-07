@@ -14,8 +14,7 @@ import 'package:future_express/shared/widgets/orders_utils.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../../shared/network/local/cache_helper.dart';
 import '../../../../shared/utils/my_utils.dart';
-import '../../../../shared/widgets/Alert_widget.dart';
-import '../../orders/cubit/order_cubit.dart';
+import '../../../store/orders/cubit/order_cubit.dart';
 
 class ChangeStatesOrder extends StatefulWidget {
   final OrdersRestaurant order;
@@ -99,30 +98,22 @@ class _ChangeStatesOrderState extends State<ChangeStatesOrder> {
                     style: const TextStyle(fontSize: 16),
                   ),
                   onPressed: () async {
-                    print(statusesItem.isOtp);
-                    await showDialog(
-                      context: context,
-                      builder: (_) => AlertClasses.ConfirmOrdersDialog(
-                        context,
-                        OrdersRestaurantCubit.get(context).updateOrder(
+                        await OrderCubit.get(context).updateOrder(
                             widget.order.id,
                             statusesItem.statuseItme,
-                            context,
-                            false),
-                      ),
-                    );
-                    BlocProvider.of<OrdersRestaurantCubit>(context)
-                        .getOrder(widget.order.orderId);
-
-                    if (statusesItem.isOtp == 1 || statusesItem.send_image == 1) {
+                          widget.position
+                        );
+                        if (statusesItem.isOtp == 1 ||
+                        statusesItem.send_image == 1) {
                       showMyBottomSheet(
                         context,
                         OtpConfirm.OtpConfirm(
                             isOtp: statusesItem.isOtp!,
                             orderId: widget.order.orderId,
-                            position: widget.position,
                             send_image: statusesItem.send_image!),
                       );
+                    }else{
+                    Navigator.pop(context);
                     }
                   },
                 ),

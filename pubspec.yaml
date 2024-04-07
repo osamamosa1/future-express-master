@@ -55,6 +55,7 @@ dependencies:
   flutter_screenutil: ^5.6.1
   connectivity_plus: ^3.0.3
   geolocator: ^9.0.2
+  permission_handler:
   geocoding: ^2.0.0
 #  mobile_scanner: ^3.2.0
   qr_flutter: ^4.1.0

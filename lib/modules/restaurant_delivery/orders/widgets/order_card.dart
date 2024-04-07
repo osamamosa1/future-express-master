@@ -133,6 +133,24 @@ class OrderCard extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
+                            Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: CircleAvatar(
+                                    radius: 5.0,
+                                    backgroundColor: Palette.greyColor,
+                                  ),
+                                ),
+                                Text(
+                                  (order.amountPaid==1)?'paid':'notPaid',
+                                  style: TextStyle(
+                                      color: (order.amountPaid==1)?Palette.successColor:Palette.greyColor,
+                                      fontSize: 26.sp),
+                                ),
+                              ],
+                            ),
+
                           ],
                         ),
                       ),
@@ -158,9 +176,17 @@ class OrderCard extends StatelessWidget {
                               ],
                             ),
                             onPressed: () {
-                              unawaited(launchUrl(Uri.parse(
-                                  'https://www.google.com/maps/@${order.latitude},${order.longitude},6z')));
-                            },
+                              if(order.latitude==null||order.latitude==''){
+                                unawaited(launchUrl(Uri.parse(
+                                    'https://www.google.com/maps/@${order.latitude},${order.longitude},6z')));
+
+                              }else{
+                                showDialog(context: context, builder: (context)=>AlertDialog(
+                                  title:const Text ('no location provided'),
+                                  actions: [TextButton(onPressed: (){Navigator.pop(context);}, child: const Text('ok'))],
+                                ));
+                              }
+                              },
                           ),
                         ),
                       ),

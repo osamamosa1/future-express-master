@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:future_express/modules/restaurant_delivery/orders/cubit/order_cubit.dart';
 import 'package:future_express/shared/utils/extension.dart';
 import 'package:future_express/shared/widgets/express_button.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -174,27 +176,38 @@ class _OTPFormState extends State<OTPForm> {
                       ),
                     ),
                   const SizedBox(height: 24.0),
-                  ExpressButton(
-                    loading: widget.loading,
-                    onPressed: () async {
-                      if (widget.isOtp) {
-                        final message = Validator(otp)
-                            .digits('t.otp_must_contain_only_digits')
-                            .length(digits, 't.otp_must_be_of_length(digits)')
-                            .error;
 
-                        setState(() {
-                          error = message;
-                        });
-                        if (widget.onActivate != null && error == null) {
-                          final message = await widget.onActivate!(otp);
-                            error = message;
-                        }
-                      }
+                   BlocConsumer<OrdersRestaurantCubit,OrdersRestaurantState>(
+                     listener: (context,state){
 
-                    },
-                    child: Text(widget.buttonText),
-                  ),
+                   },builder: (context,state){
+                    if (state is ConfirmOrderLoad ){
+                      return CircularProgressIndicator();
+                    }else{
+                      return ExpressButton(
+                        loading: widget.loading,
+                        onPressed: () async {
+                          if (widget.isOtp) {
+                            final message = Validator(otp)
+                                .digits('t.otp_must_contain_only_digits')
+                                .length(digits, 't.otp_must_be_of_length(digits)')
+                                .error;
+
+                            setState(() {
+                              error = message;
+                            });
+                            if (widget.onActivate != null && error == null) {
+                              final message = await widget.onActivate!(otp);
+                              error = message;
+                            }
+                          }
+
+                        },
+                        child: Text(widget.buttonText),
+                      );
+                    }
+
+                   }, ),
                   const SizedBox(height: 24.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

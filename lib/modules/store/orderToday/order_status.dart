@@ -47,6 +47,7 @@ class _OrdersStatusScreenState extends State<OrdersStatusScreen> {
             // بناء عرض الطلبات باستخدام الحالات المرئية
             Expanded(
               child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: _visibleStatuses()
                     .map((status) => _buildOrderListByStatus(status.title))
                     .toList(),

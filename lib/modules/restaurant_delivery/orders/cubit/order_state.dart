@@ -42,5 +42,6 @@ class ConfirmOrderLoadFailed extends OrdersRestaurantState {}
 class ConfirmOrderLoaded extends OrdersRestaurantState {}
 
 class SetImageState extends OrdersRestaurantState {}
+class SuccessSetImageState extends OrdersRestaurantState {}
 
 class SetAvatarImageState extends OrdersRestaurantState {}

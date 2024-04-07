@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:future_express/modules/technicalSupport/TechnicalSupportScreen.dart';
+import 'package:future_express/shared/network/local/cache_helper.dart';
 import 'package:future_express/shared/utils/extension.dart';
 import 'package:future_express/shared/utils/my_utils.dart';
 import 'package:future_express/shared/widgets/express_app_bar.dart';
 
 import '../../../layouts/cubit/cubit.dart';
+import '../../../shared/router.dart';
 import '../../../shared/utils/back_botton.dart';
 import '../../auth/cubit/auth_cubit.dart';
 import '../../profile/screens/my_profile_screen.dart';
@@ -32,6 +35,17 @@ class MyAccountScreen extends StatelessWidget {
               horizontal: 16,
             ),
             children: [
+              (CacheHelper.getData(key: 'mainRole')==true)?AccountListTile(
+                title:(Localizations.localeOf(context).languageCode=='ar')?'اختر نوع الحساب': 'choose account type',
+                icon: 'assets/icons/profile.svg',
+                onPressed: () {
+                  router.push('/loginTypeScreen', extra: context.read<AuthCubit>().userV2.user?.work ?? []);
+                },
+              ):const SizedBox(),
+              const Divider(
+                indent: 20,
+                endIndent: 20,
+              ),
               AccountListTile(
                 title: context.tr.my_acc,
                 icon: 'assets/icons/profile.svg',

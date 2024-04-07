@@ -108,7 +108,9 @@ class _ChangeStatesOrderState extends State<ChangeStatesOrder> {
                             widget.order.id,
                             statusesItem.statuseItme,
                             context,
-                            false),
+                            false,
+                          widget.position
+                        ),
                       ),
                     );
                     BlocProvider.of<OrdersRestaurantCubit>(context)
@@ -120,7 +122,6 @@ class _ChangeStatesOrderState extends State<ChangeStatesOrder> {
                         OtpConfirm.OtpConfirm(
                             isOtp: statusesItem.isOtp!,
                             orderId: widget.order.orderId,
-                            position:widget.position ,
                             send_image: statusesItem.send_image!),
                       );
                     }
